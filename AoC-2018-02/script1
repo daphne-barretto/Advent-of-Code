@@ -1,0 +1,34 @@
+# @author Daphne Barretto
+# 01/04/2019
+# AoC-2018-02 Part 1
+
+# import miscellaneous operating system interfaces
+import os
+
+from string import ascii_lowercase
+
+# get file input.txt assuming it is in the same folder as the script
+filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
+# open the file in read mode
+inputFile = open(filename, "r")
+
+boxes2 = 0
+boxes3 = 0
+
+found2 = False
+found3 = False
+
+for line in inputFile:
+    found2 = False
+    found3 = False
+    for letter in ascii_lowercase:
+        count = line.count(letter)
+        if count == 2 and not found2:
+            boxes2 += 1
+            found2 = True
+        elif count == 3 and not found3:
+            boxes3 += 1
+            found3 = True
+
+checksum = boxes2 * boxes3
+print checksum
