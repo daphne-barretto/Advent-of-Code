@@ -1,0 +1,27 @@
+# @author Daphne Barretto
+# 01/03/2019
+# AoC-2018-01 Part 2
+
+# import functions creating iterators for efficient looping
+import itertools
+# import miscellaneous operating system interfaces
+import os
+
+# get file input.txt assuming it is in the same folder as the script
+filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
+# open the file in read mode
+inputFile = open(filename, "r")
+# populate list lineVals with inputFile lines
+lineVals = [int(x) for x in inputFile]
+
+listVals = {0}
+val = 0
+
+for current in itertools.cycle(lineVals):
+    val += current
+    if val in listVals:
+        break
+    else:
+        listVals.add(val)
+
+print val

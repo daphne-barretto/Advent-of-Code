@@ -1,0 +1,33 @@
+# @author Daphne Barretto
+# 01/03/2019
+# AoC-2018-01 Part 1
+
+# import miscellaneous operating system interfaces
+import os
+
+# get file input.txt assuming it is in the same folder as the script
+filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
+# open the file in read mode
+inputFile = open(filename, "r")
+
+# create variable val to hold the value
+val = 0
+
+# go through eveny line in inputFile
+for line in inputFile:
+    # create variable lineSign to hold the + or - sign for the line
+    lineSign = line[0:1]
+    # create variable lineVal to hold the value for the line
+    lineVal = line[1:]
+    # if addition, add the lineVal to val
+    if lineSign == "+":
+        val += int(lineVal)
+    # if subtraction, subtract lineVal from val
+    elif lineSign == "-":
+        val -= int(lineVal)
+
+# print final val
+print val
+
+# close file inputFile
+inputFile.close()
