@@ -16,9 +16,6 @@ for x in range(1000):
     for y in range(1000):
         fabric[x].append(0)
 
-print len(fabric)
-print len(fabric[0])
-
 for claim in fileLines:
 
     leftStart = claim.find("@") + 2
