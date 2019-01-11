@@ -1,2 +1,2 @@
 # Advent-of-Code
-My solutions to Eric Wastl's Advent of Code puzzles (https://adventofcode.com/)
+My python solutions to Eric Wastl's Advent of Code puzzles (https://adventofcode.com/)
