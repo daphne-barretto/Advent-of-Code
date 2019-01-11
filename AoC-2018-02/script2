@@ -2,33 +2,26 @@
 # 01/04/2019
 # AoC-2018-02 Part 2
 
-# NOT COMPLETE
-
 # import miscellaneous operating system interfaces
 import os
 
 # get file input.txt assuming it is in the same folder as the script
 filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
 # open the file in read mode
-inputFile = open(filename, "r")
+lines = open(filename, "r").readlines()
+linesCopy = open(filename, "r").readlines()
 
+# test case
 # inputFile = ["abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz"]
 
-for line1 in inputFile:
-    for line2 in inputFile:
-        #print line1
-        #print line2
+for line1 in lines:
+    for line2 in linesCopy:
         commonChars = ""
         notCommonChars = ""
-        #print line1
-        #print line2
         for x in range(len(line1)):
-            #print line1[x]
-            #print line2[x]
             if line1[x] == line2[x]:
                 commonChars += line1[x]
             else:
                 notCommonChars += line1[x]
-        #print len(notCommonChars)
         if len(notCommonChars) == 1:
             print commonChars
