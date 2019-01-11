@@ -1,0 +1,50 @@
+# @author Daphne Barretto
+# 01/11/2019
+# AoC-2018-03 Part 1
+
+# import miscellaneous operating system interfaces
+import os
+
+# get filepath input.txt assuming it is in the same folder as the script
+filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
+# open the file in read mode and make a list of lines
+fileLines = open(filename, "r").readlines()
+
+fabric = []
+for x in range(1000):
+    fabric.append([])
+    for y in range(1000):
+        fabric[x].append(0)
+
+print len(fabric)
+print len(fabric[0])
+
+for claim in fileLines:
+
+    leftStart = claim.find("@") + 2
+    leftEnd = claim.find(",")
+    left = int(claim[leftStart: leftEnd])
+
+    topStart = leftEnd + 1
+    topEnd = claim.find(":")
+    top = int(claim[topStart: topEnd])
+
+    widthStart = topEnd + 2
+    widthEnd = claim.find("x")
+    width = int(claim[widthStart: widthEnd])
+
+    heightStart = widthEnd + 1
+    height = int(claim[heightStart: ])
+
+    for y in range(int(height)):
+        for x in range(int(width)):
+            fabric[top + y][left + x] += 1
+
+num = 0
+
+for row in fabric:
+    for x in row:
+        if x > 1:
+            num += 1
+
+print num
