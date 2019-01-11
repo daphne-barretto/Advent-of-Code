@@ -3,7 +3,7 @@
 # AoC-2018-02 Part 2
 
 # import miscellaneous operating system interfaces
-import os
+import os, sys
 
 # get file input.txt assuming it is in the same folder as the script
 filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
@@ -25,3 +25,4 @@ for line1 in lines:
                 notCommonChars += line1[x]
         if len(notCommonChars) == 1:
             print commonChars
+            sys.exit(0)
