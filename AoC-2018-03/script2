@@ -1,0 +1,58 @@
+# @author Daphne Barretto
+# 01/11/2019
+# AoC-2018-03 Part 2
+
+# import miscellaneous operating system interfaces
+import os
+
+# get filepath input.txt assuming it is in the same folder as the script
+filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
+# open the file in read mode and make a list of lines
+fileLines = open(filename, "r").readlines()
+
+# test case
+# fileLines = ["#1 @ 1,3: 4x4", "#2 @ 3,1: 4x4", "#3 @ 5,5: 2x2"]
+
+availableClaims = []
+for x in range(len(fileLines)):
+    availableClaims.append(x+1)
+
+fabric = []
+for x in range(1000):
+    fabric.append([])
+    for y in range(1000):
+        fabric[x].append(0)
+
+for claim in fileLines:
+
+    id = claim[1: claim.find(" ")]
+
+    leftStart = claim.find("@") + 2
+    leftEnd = claim.find(",")
+    left = int(claim[leftStart: leftEnd])
+
+    topStart = leftEnd + 1
+    topEnd = claim.find(":")
+    top = int(claim[topStart: topEnd])
+
+    widthStart = topEnd + 2
+    widthEnd = claim.find("x")
+    width = int(claim[widthStart: widthEnd])
+
+    heightStart = widthEnd + 1
+    height = int(claim[heightStart: ])
+
+    yLoops = 0
+    xLoops = 0
+
+    for y in range(height):
+        for x in range(width):
+            currentVal = fabric[top + y][left + x]
+            if currentVal != 0:
+                if int(currentVal) in availableClaims:
+                    availableClaims.remove(int(currentVal))
+                if int(id) in availableClaims:
+                    availableClaims.remove(int(id))
+            fabric[top + y][left + x] = id
+
+print availableClaims
