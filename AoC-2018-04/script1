@@ -5,7 +5,11 @@
 # import miscellaneous operating system interfaces
 import os
 
+<<<<<<< HEAD
 # get filename input.txt assuming it is in the same folder as the script
+=======
+# get filename input.txt asuming it is in the same folder as the script
+>>>>>>> f4e2450a3bde0198505c53cb4ad9a66b96fa3064
 filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
 # open the file in read mode and make a list of lines
 fileLines = open(filename, "r").readlines()
@@ -50,9 +54,12 @@ for line in fileLines:
         timeWakeUp = int(line[line.find(":") + 1: line.find("]")])
         sleepingDict[currentGuard] = sleepingDict[currentGuard] + (timeWakeUp - timeFallAsleep)
 
+<<<<<<< HEAD
 print "HERE"
 print sleepingDict
 
+=======
+>>>>>>> f4e2450a3bde0198505c53cb4ad9a66b96fa3064
 sleepiestGuard = max(sleepingDict, key=sleepingDict.get)
 sleepiestGuardAsleep = False
 guardSleepTimes = []
