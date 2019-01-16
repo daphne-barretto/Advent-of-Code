@@ -1,0 +1,74 @@
+# @author Daphne Barretto
+# 01/13/2019
+# AoC-2018-04 Part 1
+
+# import miscellaneous operating system interfaces
+import os
+
+# get filename input.txt assuming it is in the same folder as the script
+filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
+# open the file in read mode and make a list of lines
+fileLines = open(filename, "r").readlines()
+
+# test case
+# fileLines = ["[1518-11-01 00:00] Guard #10 begins shift",
+# "[1518-11-01 00:05] falls asleep",
+# "[1518-11-01 00:25] wakes up",
+# "[1518-11-01 00:30] falls asleep",
+# "[1518-11-01 00:55] wakes up",
+# "[1518-11-01 23:58] Guard #99 begins shift",
+# "[1518-11-02 00:40] falls asleep",
+# "[1518-11-02 00:50] wakes up",
+# "[1518-11-03 00:05] Guard #10 begins shift",
+# "[1518-11-03 00:24] falls asleep",
+# "[1518-11-03 00:29] wakes up",
+# "[1518-11-04 00:02] Guard #99 begins shift",
+# "[1518-11-04 00:36] falls asleep",
+# "[1518-11-04 00:46] wakes up",
+# "[1518-11-05 00:03] Guard #99 begins shift",
+# "[1518-11-05 00:45] falls asleep",
+# "[1518-11-05 00:55] wakes up]"]
+
+fileLines.sort()
+
+currentGuard = -1
+sleepingDict = {}
+currentGuardAsleep = False
+timeFallAsleep = 0
+timeWakeUp = 0
+
+for line in fileLines:
+    if line.find("#") != -1:
+        currentGuard = line[line.find("#") + 1: line.find(" ", line.find("#") + 1)]
+        if currentGuard not in sleepingDict:
+            sleepingDict[currentGuard] = 0
+    elif line.find("falls asleep") != -1:
+        currentGuardAsleep = True
+        timeFallAsleep = int(line[line.find(":") + 1: line.find("]")])
+    elif line.find("wakes up") != -1:
+        currentGuardAsleep = False
+        timeWakeUp = int(line[line.find(":") + 1: line.find("]")])
+        sleepingDict[currentGuard] = sleepingDict[currentGuard] + (timeWakeUp - timeFallAsleep)
+
+print "HERE"
+print sleepingDict
+
+sleepiestGuard = max(sleepingDict, key=sleepingDict.get)
+sleepiestGuardAsleep = False
+guardSleepTimes = []
+
+for line in fileLines:
+    if line.find("#") != -1:
+        currentGuard = line[line.find("#") + 1: line.find(" ", line.find("#") + 1)]
+    elif currentGuard == sleepiestGuard and line.find("falls asleep") != -1:
+        sleepiestGuardAsleep = True
+        timeFallAsleep = int(line[line.find(":") + 1: line.find("]")])
+    elif currentGuard == sleepiestGuard and line.find("wakes up") != -1:
+        sleepiestGuardAsleep = False
+        timeWakeUp = int(line[line.find(":") + 1: line.find("]")])
+        for x in range(timeWakeUp - timeFallAsleep):
+            guardSleepTimes.append(x + timeFallAsleep)
+
+chosenMin = max(set(guardSleepTimes), key=guardSleepTimes.count)
+
+print "Answer: " + str(int(sleepiestGuard) * int(chosenMin))
