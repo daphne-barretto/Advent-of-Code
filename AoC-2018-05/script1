@@ -1,0 +1,30 @@
+# @author Daphne Barretto
+# 01/17/2019
+# AoC-2018-05 Part 1
+
+# import miscellaneous operating system interfaces
+import os
+
+# get filename input.txt assuming it is in the same folder as the script
+filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
+# open the file in read mode and read line as polymer
+polymer = open(filename, "r").readline()
+
+# test case
+# polymer = "dabAcCaCBAcCcaDA"
+
+polymer = ''.join(polymer.split())
+
+i = 1
+while i < len(polymer):
+    char = polymer[i]
+    prevChar = polymer[i-1]
+    if (char.isupper() and prevChar.islower() and char == prevChar.upper()) or (char.islower() and prevChar.isupper() and char.upper() == prevChar):
+        polymer = polymer[:i - 1] + polymer[i + 1:]
+        i = 1
+    else:
+        i += 1
+
+print "Answer: " + str(len(polymer))
+
+# 11755
