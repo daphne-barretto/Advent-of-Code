@@ -1,0 +1,41 @@
+# @author Daphne Barretto
+# 01/18/2019
+# AoC-2018-05 Part 2
+
+# import miscellaneous operating system interfaces
+import os
+
+# get filename input.txt assuming it is in the same folder as the script
+filename = os.path.dirname(os.path.abspath(__file__)) + "/input.txt"
+# open the file in read mode and read line as polymer
+polymer = open(filename, "r").readline()
+
+# test case
+# polymer = "dabAcCaCBAcCcaDA"
+
+# remove white space
+polymer = ''.join(polymer.split())
+
+minLen = -1
+
+for i in range(26):
+    # remove all units of one type (letter both uppercase and lowercase)
+    tempPolymer = polymer.replace(chr(i + 65), "").replace(chr(i + 97), "")
+
+    # react the polymer
+    j = 1
+    while j < len(tempPolymer):
+        char = tempPolymer[j]
+        prevChar = tempPolymer[j-1]
+        if (char.isupper() and prevChar.islower() and char == prevChar.upper()) or (char.islower() and prevChar.isupper() and char.upper() == prevChar):
+            tempPolymer = tempPolymer[:j - 1] + tempPolymer[j + 1:]
+            j = 1
+        else:
+            j += 1
+
+    currentLen = len(tempPolymer)
+
+    if currentLen < minLen or minLen == -1:
+        minLen = currentLen
+
+print "Answer: " + str(minLen)
