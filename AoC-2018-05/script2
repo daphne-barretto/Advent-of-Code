@@ -16,26 +16,26 @@ polymer = open(filename, "r").readline()
 # remove white space
 polymer = ''.join(polymer.split())
 
-minLen = -1
-
-for i in range(26):
-    # remove all units of one type (letter both uppercase and lowercase)
-    tempPolymer = polymer.replace(chr(i + 65), "").replace(chr(i + 97), "")
-
-    # react the polymer
+# react function
+def react(stringToReact):
     j = 1
-    while j < len(tempPolymer):
-        char = tempPolymer[j]
-        prevChar = tempPolymer[j-1]
+    while j < len(stringToReact):
+        char = stringToReact[j]
+        prevChar = stringToReact[j-1]
         if (char.isupper() and prevChar.islower() and char == prevChar.upper()) or (char.islower() and prevChar.isupper() and char.upper() == prevChar):
-            tempPolymer = tempPolymer[:j - 1] + tempPolymer[j + 1:]
+            stringToReact = stringToReact[:j - 1] + stringToReact[j + 1:]
             j = 1
         else:
             j += 1
+    return stringToReact
 
-    currentLen = len(tempPolymer)
+polymer = react(polymer)
+print polymer
 
+minLen = -1
+for i in range(26):
+    currentLen = len(react(polymer.replace(chr(i + 65), "").replace(chr(i + 97), "")))
     if currentLen < minLen or minLen == -1:
         minLen = currentLen
 
-print "Answer: " + str(minLen)
+print minLen
